@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Webpage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            margin-top: 60px;
+        }
+
+        .left-menu {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 1rem;
+            background-color: #eaeaea;
+        }
+
+        .right-panel {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .collapsible {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .left-menu {
+                width: 150px;
+            }
+
+            .right-panel {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .left-menu {
+                display: none;
+            }
+
+            .right-panel {
+                display: none;
+            }
+
+            .collapsible {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        Fixed Navbar
+    </div>
+
+    <div class="content">
+        <div class="left-menu">
+            <button class="collapsible" onclick="toggleMenu()">Toggle Menu</button>
+            <p>Left Menu Content</p>
+        </div>
+
+        <div class="main-content">
+            <p>Main Content Area</p>
+        </div>
+
+        <div class="right-panel">
+            <p>Right Panel Content</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        Footer Content
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const leftMenu = document.querySelector('.left-menu');
+            if (leftMenu.style.display === 'none' || leftMenu.style.display === '') {
+                leftMenu.style.display = 'block';
+            } else {
+                leftMenu.style.display = 'none';
+            }
+        }
+
+        function adjustPageWidth() {
+            const width = window.innerWidth;
+            const body = document.body;
+
+            if (width <= 600) {
+                body.style.transform = 'scale(0.5)';
+            } else if (width <= 700) {
+                body.style.transform = 'scale(0.75)';
+            } else if (width <= 767) {
+                body.style.transform = 'scale(0.8)';
+            } else if (width <= 1600) {
+                body.style.transform = 'scale(0.9)';
+            } else {
+                body.style.transform = 'scale(1)';
+            }
+            body.style.transformOrigin = 'top left';
+        }
+
+        window.addEventListener('resize', adjustPageWidth);
+        window.addEventListener('DOMContentLoaded', adjustPageWidth);
+    </script>
+</body>
+</html>
