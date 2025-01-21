@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room - {{ room_name }}</title>
+</head>
+<body>
+    <h1>Welcome to the Chat Room: {{ room_name }}</h1>
+    <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;"></div>
+    <form id="message-form">
+        <input id="chat-message-input" type="text" size="100" placeholder="Type a message..." autocomplete="off">
+        <button id="chat-message-send" type="submit">Send</button>
+    </form>
+
+    <script>
+        // Define the roomName variable using the Django template
+        const roomName = "common"; // Hardcoded room name for all users
+
+
+        // Function to handle WebSocket communication
+        (function() {
+            // Create WebSocket connection
+            const chatSocket = new WebSocket(
+                'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
+            );
+
+            // Handle incoming messages
+            chatSocket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                console.log("Received message:", data.message); // Debug log
+                const chatBox = document.getElementById('chat-box');
+                const newMessage = document.createElement('div');
+                newMessage.textContent = data.message;
+                newMessage.style.margin = '5px 0'; // Add some spacing between messages
+                chatBox.appendChild(newMessage);
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+            };
+
+            // Handle WebSocket closure
+            chatSocket.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+
+            // Handle form submission for sending messages
+            document.getElementById('message-form').onsubmit = function(e) {
+                e.preventDefault();
+                const messageInput = document.getElementById('chat-message-input');
+                const message = messageInput.value.trim();
+
+                if (message && chatSocket.readyState === WebSocket.OPEN) {
+                    chatSocket.send(JSON.stringify({
+                        'message': message
+                    }));
+                    messageInput.value = ''; // Clear the input field
+                }
+            };
+        })();
+    </script>
+</body>
+</html>
