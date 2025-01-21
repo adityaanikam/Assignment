@@ -17,9 +17,11 @@ This project is a Django-based web application designed to [describe the purpose
    cd <django-app-directory>
 
 2. create a virtual environment
+```bash
 python -m venv venv
 source venv/bin/activate   # For Linux/Mac
 venv\Scripts\activate      # For Windows
+```
 
 3. Install dependencies:
 pip install -r requirements.txt
