@@ -1,7 +1,7 @@
 
 #### File: `README.md`
 
-```markdown
+
 # AWS Lambda Functions - Add Numbers & Store Files in S3
 
 ## Overview
