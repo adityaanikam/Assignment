@@ -1,13 +1,13 @@
 # Django Application
 
 ## Overview
-This project is a Django-based web application designed to [describe the purpose of the app, e.g., manage tasks, create blogs, etc.]. 
+This project is a Django-based web application designed for real time chatting using web sockets . 
 
 ## Features
 - User authentication and authorization
 - Dynamic content rendering
-- Integration with a database (SQLite/PostgreSQL/MySQL)
-- REST API endpoints for external access (if applicable)
+- Integration with a database with SQLite
+- REST API endpoints for external access
 
 ## Installation
 
@@ -28,11 +28,13 @@ venv\Scripts\activate      # For Windows
 pip install -r requirements.txt
 ```
 4.Apply migrations:
+```bash
 python manage.py migrate
-
+```
 5.Run the development server
- daphne -p 8000 chat_project.asgi:application         
-
+```bash 
+daphne -p 8000 chat_project.asgi:application         
+```
 Usage
 Access the app at http://127.0.0.1:8000/ in your browser.
 Login or create an account to start using the application.               
